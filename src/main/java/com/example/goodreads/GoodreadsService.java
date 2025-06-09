@@ -4,8 +4,9 @@ import java.util.*;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.http.HttpStatus;
 import com.example.goodreads.Book;
+import com.example.goodreads.BookRepo;
 
-public class GoodreadsService {
+public class GoodreadsService implements BookRepo{
 
     private HashMap<Integer, Book> hmap = new HashMap<>();
 
@@ -16,12 +17,14 @@ public class GoodreadsService {
         hmap.put(b2.getBookId(), b2);
     }
 
+    @Override
     public ArrayList<Book> getBooks() {
         Collection<Book> hbook = hmap.values();
         ArrayList<Book> list = new ArrayList<>(hbook);
         return list;
     }
 
+    @Override
     public Book getBook(int bookId) {
         Book book = hmap.get(bookId);
         if(book == null) {
